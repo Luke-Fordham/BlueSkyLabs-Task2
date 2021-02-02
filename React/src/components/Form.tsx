@@ -1,17 +1,18 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, { useEffect, useMemo, useState} from 'react';
 import logo from './logo.svg';
 import './../App.css';
 import { FormContext } from './FormContext';
+import TaskList from './TaskList';
 
 const Form: React.FC = () => {
 
-  const [form, setForm]: any = useState([]) 
-  const providerForm: any = useMemo(() => ({ form, setForm }), [form, setForm]);
+  const [form, setForm]: any = useState([]);
+  const providerForm = useMemo(() => ({ form, setForm }), [form, setForm]);
 
 
   useEffect(()=> {
     const formData: any = [];
-    const fetchData = async () => {
+    const fetchData: VoidFunction = async () => {
         try{
             const response = await fetch('api/users');
             const users = await response.json();
@@ -28,22 +29,17 @@ const Form: React.FC = () => {
         }
         setForm(formData);
     }
-
     fetchData();
 }, [])
 
-useEffect(()=> {
-
-    console.log(form)
-}, [form])
+// useEffect(()=> {
+//     console.log(form)
+// }, [form])
 
   return (
     <div className="form">
         <FormContext.Provider value={providerForm}>
-    {/* <pre>{form.children}</pre> */}
-                    {/* <Filter />
-        <TaskList />
-        <AddTask /> */}
+            <TaskList />
         </FormContext.Provider>
     </div>
   );
