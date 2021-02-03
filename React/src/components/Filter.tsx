@@ -1,7 +1,7 @@
 import { useScrollTrigger } from '@material-ui/core';
 import React, { useEffect } from 'react';
 import './../App.css';
-import {useSharedForm} from './Form';
+import {useSharedForm, useSharedFormEls} from './Form';
 
 declare module 'react' {
   interface HTMLProps<T> {
@@ -14,9 +14,23 @@ const Filter: React.FC = () => {
   const now = new Date();
 
   const { form, add }: any = useSharedForm();
+  const { formEls, addEls }: any = useSharedFormEls();
+
+  function createEls(data: any, identifier: any) {
+    const userEls: any = [];
+    userEls["users"] = [];
+    data.forEach((item: any) => {
+      userEls.users.push(
+        <div key={item.id} className={`${identifier}-${item.id}`}>
+        <h4>{item.firstName}</h4>
+      </div>
+      )})
+      return userEls;
+  }
 
   useEffect(()=> {
     const formData: any = [];
+    const formObjects: any = [];
     const fetchData: VoidFunction = async () => {
         try{
             const response = await fetch('api/users');
@@ -42,8 +56,8 @@ const Filter: React.FC = () => {
 const filterUsers = (key: any) => {
   const result = form.users.find((obj: any) => obj.id == key);
   const formData: any = [];
-  formData['users'] = [result];
   formData['todos'] = form.todos;
+  formData['users'] = [result];
   add(formData)
 }
 
@@ -51,15 +65,17 @@ const filterUsers = (key: any) => {
   useEffect(() => {
       console.log(form);
       console.log('changed')
+      if (form.users) {
+        addEls(createEls(form.users, 'user'));
+      }
   }, [form])
 
 return (
     
   <div className="TaskList">
-      <button value="Reilly" onClick={ () => {filterUsers(1)}}>
+      <button onClick={ () => {filterUsers(1)}}>
             only return user 1
       </button>
-      <pre>{form}</pre>
   </div>
 );
 }
