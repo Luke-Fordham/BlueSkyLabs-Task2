@@ -4,11 +4,13 @@ import { useBetween } from 'use-between';
 import Filter from './Filter';
 
 const useForm = () => {
-    const [form, setForm]: any = useState([]);
+    const [formModel, setForm]: any = useState([]);
+    const [formView, setFormView]: any = useState([]);
     const [formEls, setFormEls]: any = useState([]);
     const add = (value: any) => {setForm(value);} 
     const addEls = (value: any) => {setFormEls(value);} 
-    return ({form, add, formEls, addEls});
+    const setView = (value: any) => {setFormView(value);} 
+    return ({formModel, add, formEls, addEls, formView, setView});
 }
 
 
@@ -16,15 +18,16 @@ const useForm = () => {
   export const useSharedFormEls = () => useBetween(useForm);
 
   const List: React.FC = () => {
-    const { form }: any = useSharedForm();
+    const { formModel }: any = useSharedForm();
     const { formEls }: any = useSharedFormEls();
+    const { formView }: any = useSharedFormEls();
     
     return (
         <div>
-        { form.users ? <pre>{JSON.stringify(form.users)}</pre> : null}
+        { formView.users ? <pre>{JSON.stringify(formView.users)}</pre> : null}
         { formEls.users ? formEls.users : null}
-        { form.todos ? <pre>{JSON.stringify(form.todos)}</pre>: null }
-        { form.name ? <pre>{JSON.stringify(form.name)}</pre>: null }
+        { formView.todos ? <pre>{JSON.stringify(formView.todos)}</pre>: null }
+        { formView.name ? <pre>{JSON.stringify(formView.name)}</pre>: null }
         {/* <pre>{form}</pre> */}
         </div>
     );
