@@ -1,19 +1,13 @@
-import React, { useEffect, useState} from 'react';
+import React, { useEffect, useMemo, useState} from 'react';
 import logo from './logo.svg';
 import './../App.css';
+import { FormContext } from './FormContext';
 import TaskList from './TaskList';
-import { useBetween } from 'use-between';
 
-const Form: React.FC = () => {
-    const useForm = () => {
-        const [form, setForm]: any = useState([]);
-        return{ form,
-        setForm};
-    }
+const Form_copy: React.FC = () => {
 
-    const useSharedForm = () => useBetween(useForm);
-
-    const {form, setForm} = useSharedForm();
+  const [form, setForm]: any = useState([]);
+  const providerForm = useMemo(() => ({ form, setForm }), [form, setForm]);
 
 
   useEffect(()=> {
@@ -36,21 +30,19 @@ const Form: React.FC = () => {
         setForm(formData);
     }
     fetchData();
-    console.log(form);
 }, [])
 
 // useEffect(()=> {
-//     console.log('recieved change');
-// }, [])
+//     refreshView(form)
+// }, [providerForm])
 
   return (
     <div className="form">
-        { form.users ? <pre>{JSON.stringify(form.users)}</pre> : null}
-        { form.todos ? <pre>{JSON.stringify(form.todos)}</pre>: null }
-        <TaskList />
-        { form.test ? <pre>{JSON.stringify(form.test)}</pre>: null }
+        <FormContext.Provider value={providerForm}>
+            <TaskList />
+        </FormContext.Provider>
     </div>
   );
 }
 
-export default Form;
+export default Form_copy;

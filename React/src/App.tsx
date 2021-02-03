@@ -1,21 +1,13 @@
-import React from 'react';
+import React, {useState} from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Form from './components/Form';
+import List from './components/List';
 
 const App: React.FC = () => {
-  // fetch('api/users')
-  // .then(response => response.json())
-  // .then(data => console.log(data));
-
-  // fetch('api/todos')
-  // .then(response => response.json())
-  // .then(data => console.log(data)); 
-
-
   return (
-    <div className="App">
-      <Form />
+    <div className="App">        
+        <List />
     </div>
   );
 }
