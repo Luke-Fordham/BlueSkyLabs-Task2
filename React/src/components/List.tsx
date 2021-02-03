@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback} from 'react';
 import './../App.css';
 import { useBetween } from 'use-between';
-import { NodeWorker } from 'inspector';
+import TaskList from './TaskList';
 
 const useForm = () => {
     const [form, setForm]: any = useState([]);
@@ -10,7 +10,7 @@ const useForm = () => {
 }
 
 
-  const useSharedForm = () => useBetween(useForm);
+  export const useSharedForm = () => useBetween(useForm);
 
   const Form: React.FC = () => {
     const { form, add }: any = useSharedForm();
@@ -48,33 +48,6 @@ const useForm = () => {
     );
   };
 
-  const TaskList: React.FC = () => {
-    const now = new Date();
-
-    const { form, add }: any = useSharedForm();
-
-    //form.test = {"name": "something"};
-
-    const formData = form.name = [now.getTime()];
-;
-
-    useEffect(() => {
-        console.log(form);
-        console.log('changed')
-    }, [form])
-
-  return (
-      
-    <div className="TaskList">
-        <button onClick={ () => {
-            add(formData);
-        }
-            }>
-                    click me
-                </button>
-    </div>
-  );
-}
 
   const List = () => (
     <>

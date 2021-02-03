@@ -1,34 +1,37 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import logo from './logo.svg';
 import './../App.css';
+import {useSharedForm} from './List';
 
 const TaskList: React.FC = () => {
-    const now = new Date();
+  const now = new Date();
 
-    const [form, setForm]: any = useState([]);
+  const { form, add }: any = useSharedForm();
 
+  const formData: any = [];
 
-    useEffect(() => {
-        console.log(form);
-        console.log('changed')
-    }, [form, setForm])
+  formData['users'] = form.users;
+  formData['todos'] = form.users;
+  formData['name'] = {"something": now.getTime()};
 
-  return (
-      
-    <div className="TaskList">
+  console.log('formdata is', formData);
+  // const formData = form;
+;
 
-        <button onClick={
-            () => {
-                let formData: any = form; 
-                formData.test = {"time": now.getTime()}; 
-                setForm(formData)
-                // refreshView({})
-                }}>
-                    click me
-                </button>
+  useEffect(() => {
+      console.log(form);
+      console.log('changed')
+  }, [form])
 
-    </div>
-  );
+return (
+    
+  <div className="TaskList">
+      <button onClick={ () => {
+          add(formData);}}>
+            click me
+      </button>
+  </div>
+);
 }
 
 export default TaskList;
