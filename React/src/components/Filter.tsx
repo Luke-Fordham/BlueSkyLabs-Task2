@@ -28,12 +28,12 @@ const Filter: React.FC = () => {
   }
 
   const filterUsers = (key: any) => {
-    const result = formModel.users.find((obj: any) => obj.id == key);
-    const formData: any = [];
-    formData['todos'] = formModel.todos;
-    formData['users'] = [result];
-    setView(formData)
-  }
+  const result = formModel.users.find((obj: any) => obj.id == key);
+  const formData: any = [];
+  formData['todos'] = formModel.todos;
+  formData['users'] = [result];
+  setView(formData)
+}
 
   useEffect(()=> {
     const formData: any = [];

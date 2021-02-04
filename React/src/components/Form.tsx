@@ -18,16 +18,15 @@ const useForm = () => {
   export const useSharedFormEls = () => useBetween(useForm);
 
   const List: React.FC = () => {
-    const { formModel }: any = useSharedForm();
+    //const { formModel }: any = useSharedForm();
     const { formEls }: any = useSharedFormEls();
     const { formView }: any = useSharedFormEls();
     
     return (
         <div>
-        { formView.users ? <pre>{JSON.stringify(formView.users)}</pre> : null}
+        {/* { formView.users ? <pre>{JSON.stringify(formView.users)}</pre> : null} */}
         { formEls.users ? formEls.users : null}
         { formView.todos ? <pre>{JSON.stringify(formView.todos)}</pre>: null }
-        { formView.name ? <pre>{JSON.stringify(formView.name)}</pre>: null }
         {/* <pre>{form}</pre> */}
         </div>
     );
