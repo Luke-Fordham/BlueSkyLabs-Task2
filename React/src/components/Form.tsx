@@ -25,8 +25,8 @@ const useForm = () => {
     return (
         <div>
         {/* { formView.users ? <pre>{JSON.stringify(formView.users)}</pre> : null} */}
-        { formEls.todos ? formEls.todos : null}
-        { formView.todos ? <pre>{JSON.stringify(formView.todos)}</pre>: null }
+        { formEls.todos !== undefined ? formEls.todos : null}
+        { formView.users ? <pre>{JSON.stringify(formView.users)}</pre>: null }
         {/* <pre>{form}</pre> */}
         </div>
     );

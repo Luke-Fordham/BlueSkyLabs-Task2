@@ -21,13 +21,7 @@ const Filter: React.FC = () => {
     userEls["users"] = [];
     todoEls["todos"] = [];
     data.forEach((item: any) => {
-      if (identifier == 'user') {
-        userEls.users.push(
-          <div key={item.id} className={`${identifier}-${item.id}`}>
-          <h4>{item.firstName}</h4>
-        </div>
-        )
-      } if (identifier == 'todo') {
+      if (identifier == 'todo' && item !== undefined) {
         todoEls.todos.push(
           <div key={item.id} className={`${identifier}-${item.id}`}>
           <h4>{item.name}</h4>
@@ -40,11 +34,19 @@ const Filter: React.FC = () => {
       else if (identifier == 'todo') {return todoEls}
   }
 
-  const filterUsers = (key: any) => {
-  const result = formModel.users.find((obj: any) => obj.id == key);
+//   const filterUsers = (key: any) => {
+//   const result = formModel.users.find((obj: any) => obj.id == key);
+//   const formData: any = [];
+//   formData['todos'] = formModel.todos;
+//   formData['users'] = [result];
+//   setView(formData)
+// }
+
+const filterTodos = (key: any) => {
+  const result = formModel.todos.find((obj: any) => obj.user == key);
   const formData: any = [];
-  formData['todos'] = formModel.todos;
-  formData['users'] = [result];
+  formData['users'] = formModel.users;
+  formData['todos'] = [result];
   setView(formData)
 }
 
@@ -83,7 +85,6 @@ const findUser = (key: any) => {
   useEffect(() => {
       console.log(formModel);
       console.log('changed')
-      const formObjs: any = [];
       if (formView.todos) {
         addEls(createEls(formView.todos, 'todo'));
       }
@@ -96,16 +97,16 @@ const findUser = (key: any) => {
 return (
     
   <div className="TaskList">
-      <button onClick={ () => {filterUsers(1)}}>
+      <button onClick={ () => {filterTodos(1)}}>
             only return user 1
       </button>
-      <button onClick={ () => {filterUsers(2)}}>
+      <button onClick={ () => {filterTodos(2)}}>
             only return user 2
       </button>
-      <button onClick={ () => {filterUsers(3)}}>
+      <button onClick={ () => {filterTodos(3)}}>
             only return user 3
       </button>
-      <button onClick={ () => {filterUsers(4)}}>
+      <button onClick={ () => {filterTodos(4)}}>
             only return user 4
       </button>
   </div>
