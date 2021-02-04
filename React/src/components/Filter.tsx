@@ -120,20 +120,9 @@ const findUser = (key: any) => {
 return (
     
   <div className="TaskList">
-      <button onClick={ () => {filterTodos(1)}}>
-            only return user 1
-      </button>
-      <button onClick={ () => {filterTodos(2)}}>
-            only return user 2
-      </button>
-      <button onClick={ () => {filterTodos(3)}}>
-            only return user 3
-      </button>
-      <button onClick={ () => {filterTodos(4)}}>
-            only return user 4
-      </button>
       {formEls.users ? 
-      <select onChange={(e) => {filterTodos(e.target.value)}} name="users" id="select_users">
+      <select placeholder="select user" onChange={(e) => {filterTodos(e.target.value)}} name="users" id="select_users">
+        <option value="" disabled selected>Select your option</option>
         {formEls.users}
       </select> : null}
   </div>
