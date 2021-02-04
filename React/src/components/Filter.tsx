@@ -98,7 +98,7 @@ const findUser = (key: any) => {
       const userDropdown: any = [];
       formModel.users.forEach((user: any) => {
         userDropdown.push(
-          <option key={user.id} value={user.id}>{user.firstName + ' ' + user.lastName}</option>
+          <option onChange={() => {alert('hi')}} key={user.id} value={user.id}>{user.firstName + ' ' + user.lastName}</option>
         )
       })
       const updateEls: any = [];
@@ -133,10 +133,9 @@ return (
             only return user 4
       </button>
       {formEls.users ? 
-      <select name="users" id="select_users">
+      <select onChange={(e) => {filterTodos(e.target.value)}} name="users" id="select_users">
         {formEls.users}
       </select> : null}
-
   </div>
 );
 }
