@@ -13,18 +13,31 @@ const Filter: React.FC = () => {
 
   const { formModel, add }: any = useSharedForm();
   const { formView, setView }: any = useSharedForm();
-  const { addEls }: any = useSharedFormEls();
+  const { formEls, addEls }: any = useSharedFormEls();
 
   function createEls(data: any, identifier: any) {
     const userEls: any = [];
+    const todoEls: any = [];
     userEls["users"] = [];
+    todoEls["todos"] = [];
     data.forEach((item: any) => {
-      userEls.users.push(
-        <div key={item.id} className={`${identifier}-${item.id}`}>
-        <h4>{item.firstName}</h4>
-      </div>
-      )})
-      return userEls;
+      if (identifier == 'user') {
+        userEls.users.push(
+          <div key={item.id} className={`${identifier}-${item.id}`}>
+          <h4>{item.firstName}</h4>
+        </div>
+        )
+      } if (identifier == 'todo') {
+        todoEls.todos.push(
+          <div key={item.id} className={`${identifier}-${item.id}`}>
+          <h4>{item.name}</h4>
+          <p>{findUser(item.user)}</p>
+        </div>
+        )
+      }
+})
+      if (identifier == 'user'){return userEls} 
+      else if (identifier == 'todo') {return todoEls}
   }
 
   const filterUsers = (key: any) => {
@@ -33,6 +46,11 @@ const Filter: React.FC = () => {
   formData['todos'] = formModel.todos;
   formData['users'] = [result];
   setView(formData)
+}
+
+const findUser = (key: any) => {
+  const result = formModel.users.find((obj: any) => obj.id == key);
+  return result.firstName + ' ' + result.lastName;
 }
 
   useEffect(()=> {
@@ -58,12 +76,16 @@ const Filter: React.FC = () => {
     // console.log(form);
 }, []);
 
+// useEffect(() => {
+//   console.log(formEls);
+// }, [formEls])
 
   useEffect(() => {
       console.log(formModel);
       console.log('changed')
-      if (formView.users) {
-        addEls(createEls(formView.users, 'user'));
+      const formObjs: any = [];
+      if (formView.todos) {
+        addEls(createEls(formView.todos, 'todo'));
       }
   }, [formView])
 
