@@ -16,23 +16,22 @@ const Filter: React.FC = () => {
   const { formEls, addEls }: any = useSharedFormEls();
 
   function createEls(data: any, identifier: any) {
-    const userEls: any = [];
     const todoEls: any = [];
-    userEls["users"] = [];
-    todoEls["todos"] = [];
+    //todoEls["todos"] = [];
     data.forEach((item: any) => {
-      if (identifier == 'todo' && item !== undefined) {
-        todoEls.todos.push(
+      if (item !== undefined) {
+        todoEls.push(
           <div key={item.id} className={`${identifier}-${item.id}`}>
           <h4>{item.name}</h4>
           <p>{findUser(item.user)}</p>
         </div>
         )
       }
-})
-      if (identifier == 'user'){return userEls} 
-      else if (identifier == 'todo') {return todoEls}
+  })
+    return todoEls;
   }
+
+
 
 //   const filterUsers = (key: any) => {
 //   const result = formModel.users.find((obj: any) => obj.id == key);
@@ -78,21 +77,45 @@ const findUser = (key: any) => {
     // console.log(form);
 }, []);
 
-// useEffect(() => {
-//   console.log(formEls);
-// }, [formEls])
 
   useEffect(() => {
       console.log(formModel);
       console.log('changed')
       if (formView.todos) {
-        addEls(createEls(formView.todos, 'todo'));
+        const updateEls: any = [];
+        const todoEls = createEls(formView.todos, 'todo');
+        updateEls['todos'] = todoEls;
+        if (formEls.users) {
+          updateEls['users'] = formEls.users;
+        }
+        addEls(updateEls);
       }
   }, [formView])
 
   useEffect(() => {
     setView(formModel);
+    if (formModel.users) {
+      const userDropdown: any = [];
+      formModel.users.forEach((user: any) => {
+        userDropdown.push(
+          <option key={user.id} value={user.id}>{user.firstName + ' ' + user.lastName}</option>
+        )
+      })
+      const updateEls: any = [];
+      updateEls['users'] = userDropdown;
+      if (formEls.todos) {
+        updateEls['todos'] = formEls.todos;
+      }
+      // formEls.users = userDropdown;
+      //console.log('this one:', formEls)
+      addEls(updateEls);
+      //console.log(formModel.users)
+    }
   }, [formModel])
+
+  useEffect(() => {
+    console.log('formEls:', formEls);
+  }, [formEls])
 
 return (
     
@@ -109,6 +132,11 @@ return (
       <button onClick={ () => {filterTodos(4)}}>
             only return user 4
       </button>
+      {formEls.users ? 
+      <select name="users" id="select_users">
+        {formEls.users}
+      </select> : null}
+
   </div>
 );
 }
