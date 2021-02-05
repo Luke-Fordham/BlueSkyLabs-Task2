@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import './../App.css';
 import {useSharedForm, useSharedFormEls} from './Form';
-// import Select from 'react-select';
 
 declare module 'react' {
   interface HTMLProps<T> {
@@ -91,7 +90,6 @@ const findUser = (key: any) => {
           key={user.id} value={user.id}>
             {user.firstName + ' ' + user.lastName}
             </option>
-          // {"value": user.id, "label": user.firstName + ' ' + user.lastName}
         )
       })
       const updateEls: any = [];
@@ -118,7 +116,6 @@ const findUser = (key: any) => {
 return (
     
   <div className="TaskList">
-    {/* {formEls.users ? <Select options={formEls.users}/> : null} */}
       {formEls.users ? 
       <select onChange={(e) => {filterTodos(e.target.value)}} name="users" id="select_users">
         <option value="" disabled selected hidden>User</option>
