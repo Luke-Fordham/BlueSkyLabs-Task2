@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { OptionHTMLAttributes, SyntheticEvent, useEffect } from 'react';
 import './../App.css';
 import {useSharedForm, useSharedFormEls} from './Form';
+import Select from 'react-select';
 
 declare module 'react' {
   interface HTMLProps<T> {
@@ -86,12 +87,14 @@ const findUser = (key: any) => {
       const userDropdown: any = [];
       formModel.users.forEach((user: any) => {
         userDropdown.push(
-          <option  
-          key={user.id} value={user.id}>
-            {user.firstName + ' ' + user.lastName}
-            </option>
+          // <option  
+          // key={user.id} value={user.id}>
+          //   {user.firstName + ' ' + user.lastName}
+          //   </option>
+          {"value": user.id, "label": user.firstName}
         )
       })
+      userDropdown.push({"value": getIds(), "label": "All Users"})
       const updateEls: any = [];
       updateEls['users'] = userDropdown;
       if (formEls.todos) {
@@ -116,12 +119,13 @@ const findUser = (key: any) => {
 return (
     
   <div className="TaskList">
-      {formEls.users ? 
+    {formEls.users ? <Select placeholder="User" options={formEls.users} onChange={(e: any) => filterTodos(e.value)}  /> : null}
+      {/* {formEls.users ? 
       <select onChange={(e) => {filterTodos(e.target.value)}} name="users" id="select_users">
         <option value="" disabled selected hidden>User</option>
         <option value={getIds()} >All users</option>
         {formEls.users}
-      </select> : null}
+      </select> : null} */}
   </div>
 );
 }
