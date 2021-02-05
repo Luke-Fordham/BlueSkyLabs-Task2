@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import './../App.css';
 import {useSharedForm, useSharedFormEls} from './Form';
+// import Select from 'react-select';
 
 declare module 'react' {
   interface HTMLProps<T> {
@@ -17,7 +18,6 @@ const Filter: React.FC = () => {
 
   function createEls(data: any, identifier: any) {
     const todoEls: any = [];
-    //todoEls["todos"] = [];
     data.forEach((item: any) => {
       if (item !== undefined) {
         todoEls.push(
@@ -31,21 +31,11 @@ const Filter: React.FC = () => {
     return todoEls;
   }
 
-
-
-//   const filterUsers = (key: any) => {
-//   const result = formModel.users.find((obj: any) => obj.id == key);
-//   const formData: any = [];
-//   formData['todos'] = formModel.todos;
-//   formData['users'] = [result];
-//   setView(formData)
-// }
-
 const filterTodos = (key: any) => {
-  const result = formModel.todos.find((obj: any) => obj.user == key);
+  const result = formModel.todos.filter((obj: any) => obj.user == key || key.includes(obj.user));
   const formData: any = [];
   formData['users'] = formModel.users;
-  formData['todos'] = [result];
+  formData['todos'] = result;
   setView(formData)
 }
 
@@ -74,7 +64,6 @@ const findUser = (key: any) => {
         add(formData);
     }
     fetchData();
-    // console.log(form);
 }, []);
 
 
@@ -98,7 +87,11 @@ const findUser = (key: any) => {
       const userDropdown: any = [];
       formModel.users.forEach((user: any) => {
         userDropdown.push(
-          <option onChange={() => {alert('hi')}} key={user.id} value={user.id}>{user.firstName + ' ' + user.lastName}</option>
+          <option  
+          key={user.id} value={user.id}>
+            {user.firstName + ' ' + user.lastName}
+            </option>
+          // {"value": user.id, "label": user.firstName + ' ' + user.lastName}
         )
       })
       const updateEls: any = [];
@@ -106,10 +99,7 @@ const findUser = (key: any) => {
       if (formEls.todos) {
         updateEls['todos'] = formEls.todos;
       }
-      // formEls.users = userDropdown;
-      //console.log('this one:', formEls)
       addEls(updateEls);
-      //console.log(formModel.users)
     }
   }, [formModel])
 
@@ -117,12 +107,22 @@ const findUser = (key: any) => {
     console.log('formEls:', formEls);
   }, [formEls])
 
+  function getIds(){
+    const ids: any = []; 
+    formModel.users.forEach((user: any) => 
+    ids.push(user.id))
+    return ids;
+  }
+
+
 return (
     
   <div className="TaskList">
+    {/* {formEls.users ? <Select options={formEls.users}/> : null} */}
       {formEls.users ? 
-      <select placeholder="select user" onChange={(e) => {filterTodos(e.target.value)}} name="users" id="select_users">
-        <option value="" disabled selected>Select your option</option>
+      <select onChange={(e) => {filterTodos(e.target.value)}} name="users" id="select_users">
+        <option value="" disabled selected hidden>User</option>
+        <option value={getIds()} >All users</option>
         {formEls.users}
       </select> : null}
   </div>
