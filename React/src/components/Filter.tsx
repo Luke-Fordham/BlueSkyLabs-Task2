@@ -1,7 +1,8 @@
-import React, { OptionHTMLAttributes, SyntheticEvent, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import './../App.css';
 import {useSharedForm, useSharedFormEls} from './Form';
 import Select from 'react-select';
+import { TextField } from '@material-ui/core';
 
 declare module 'react' {
   interface HTMLProps<T> {
@@ -31,8 +32,14 @@ const Filter: React.FC = () => {
     return todoEls;
   }
 
-const filterTodos = (key: any) => {
-  const result = formModel.todos.filter((obj: any) => obj.user == key || key.includes(obj.user));
+const filterTodos = (key: any, input: any) => {
+  let result: any = '';
+  if (input === 'id'){
+    result = formModel.todos.filter((obj: any) => obj.user == key || key.includes(obj.user));
+  } 
+  if (input ==='keyword') {
+    result = formModel.todos.filter((obj: any) => obj.name.toLowerCase().includes(key));
+  }
   const formData: any = [];
   formData['users'] = formModel.users;
   formData['todos'] = result;
@@ -115,11 +122,18 @@ const findUser = (key: any) => {
     return ids;
   }
 
+  function handleSearch(value: any) {
+    console.log(value);
+    filterTodos(value, 'keyword')
+  }
+
 
 return (
     
   <div className="TaskList">
-    {formEls.users ? <Select placeholder="User" options={formEls.users} onChange={(e: any) => filterTodos(e.value)}  /> : null}
+      <TextField label="Search Tasks" onKeyUp={(e: any) => {handleSearch(e.target.value)}} />
+      {formEls.users ? <Select placeholder="User" 
+      options={formEls.users} onChange={(e: any) => {filterTodos(e.value, 'id')}} /> : null}
       {/* {formEls.users ? 
       <select onChange={(e) => {filterTodos(e.target.value)}} name="users" id="select_users">
         <option value="" disabled selected hidden>User</option>
