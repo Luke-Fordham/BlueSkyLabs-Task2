@@ -34,15 +34,22 @@ const Filter: React.FC = () => {
 
 const filterTodos = (key: any, input: any) => {
   let result: any = '';
+  const formData: any = [];
   if (input === 'id'){
     result = formModel.todos.filter((obj: any) => obj.user == key || key.includes(obj.user));
+    formData['users'] = formModel.users.filter((obj: any) => obj.id == key || key.includes(obj.id));
   } 
   if (input ==='keyword') {
-    result = formModel.todos.filter((obj: any) => obj.name.toLowerCase().includes(key));
-  }
-  const formData: any = [];
-  formData['users'] = formModel.users;
+    const todos = formModel.todos.filter((obj: any) => getIds('view').includes(obj.user));
+    result =todos.filter((obj: any) => obj.name.toLowerCase().includes(key));
+    if (formView.users) {
+      formData['users'] = formView.users;
+    } else {
+      formData['users'] = formModel.users;
+    }
+  } 
   formData['todos'] = result;
+  console.log('result is', result);
   setView(formData)
 }
 
@@ -75,7 +82,7 @@ const findUser = (key: any) => {
 
 
   useEffect(() => {
-      console.log(formModel);
+      console.log('view is', formView);
       console.log('changed')
       if (formView.todos) {
         const updateEls: any = [];
@@ -94,14 +101,10 @@ const findUser = (key: any) => {
       const userDropdown: any = [];
       formModel.users.forEach((user: any) => {
         userDropdown.push(
-          // <option  
-          // key={user.id} value={user.id}>
-          //   {user.firstName + ' ' + user.lastName}
-          //   </option>
           {"value": user.id, "label": user.firstName}
         )
       })
-      userDropdown.push({"value": getIds(), "label": "All Users"})
+      userDropdown.push({"value": getIds('all'), "label": "All Users"})
       const updateEls: any = [];
       updateEls['users'] = userDropdown;
       if (formEls.todos) {
@@ -115,15 +118,21 @@ const findUser = (key: any) => {
     console.log('formEls:', formEls);
   }, [formEls])
 
-  function getIds(){
+  function getIds(type: any){
     const ids: any = []; 
-    formModel.users.forEach((user: any) => 
+    let form: any = '';
+    if (type === "all"){
+      form = formModel.users
+    } else if (type ==="view"){
+      form = formView.users
+    }
+    form.forEach((user: any) => 
     ids.push(user.id))
     return ids;
   }
 
   function handleSearch(value: any) {
-    console.log(value);
+    //console.log(formView.users);
     filterTodos(value, 'keyword')
   }
 
