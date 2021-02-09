@@ -55,24 +55,48 @@ const Filter: React.FC = () => {
     return todoEls;
   }
 
+  const [filter, setFilter] : any = useState([]);
+
 // filter the tasks and reset the view state -- key: keyword (searchbar) / user Id (dropdown filter) -- input: defines type of search
 const filterTodos = (key: any, input: any) => {
+  let filterArray: any = [];
   // declare result variable
   let result: any = '';
   const formData: any = [];
   // if the input is id (user dropdown)
   if (input === 'id'){
+    let todos = formModel.todos;
+    filterArray = filter;
+    filterArray['id'] = key;
+    setFilter(filterArray)
+    if (filter.check) {
+      todos = formModel.todos.filter((obj: any) => obj.isComplete == filter.check);
+    }
+    console.log('filter is', filter)
     // set result to todos that either match the key user id OR the array of user ids includes the todo.user id
-    result = formModel.todos.filter((obj: any) => obj.user == key || key.includes(obj.user));
+    result = todos.filter((obj: any) => obj.user == key || key.includes(obj.user));
     // set the users in formdata to include only the user selected in the user dropdown
     formData['users'] = formModel.users.filter((obj: any) => obj.id == key || key.includes(obj.id));
   } 
   // if the input is a keyword (searchbar)
   if (input ==='keyword') {
-    // filter the users in the model state by getIds('view'): (gets all users in the view state) and set 'todos' variable to all the todos relevent to that todo.user id
-    const todos = formModel.todos.filter((obj: any) => getIds('view').includes(obj.user));
+    // filterArray = filter;
+    // filterArray['keyword'] = key;
+    let todos = formModel.todos;
+    // setFilter(filterArray)
+
+    if (filter.id && filter.check) {
+      todos = formModel.todos.filter((obj: any) => obj.isComplete == filter.check && ( obj.user == filter.id || filter.id.includes(obj.user)));
+    } else 
+    if (filter.id) {
+      todos = formModel.todos.filter((obj: any) => obj.user == filter.id || filter.id.includes(obj.user));
+    } else
+    if (filter.check) {
+      todos = formModel.todos.filter((obj: any) => obj.isComplete == filter.check);
+    }
+    
     // set result to all the todos (already filtered by user dropdown) that include the search keyword/letters
-    result =todos.filter((obj: any) => obj.name.toLowerCase().includes(key));
+    result = todos.filter((obj: any) => obj.name.toLowerCase().includes(key));
     // if the view already has users
     if (formView.users) {
       // set the users in the formdata to the users in the view state
@@ -84,9 +108,16 @@ const filterTodos = (key: any, input: any) => {
     }
   } 
   if (input === 'check') {
+    filterArray = filter;
+    filterArray['check'] = key;
+    let todos = formModel.todos;
+    setFilter(filterArray)
+    if (filter.id) {
+      todos = formModel.todos.filter((obj: any) => obj.user == filter.id || filter.id.includes(obj.user));
+    }
     console.log("key is", key)
-    const todos = formModel.todos.filter((obj: any) => getIds('view').includes(obj.user));
     result = todos.filter((obj: any) => obj.isComplete == key);
+
     if (formView.users) {
       // set the users in the formdata to the users in the view state
       formData['users'] = formView.users;

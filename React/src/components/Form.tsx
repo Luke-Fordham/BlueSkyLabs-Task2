@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './../App.css';
 import { useBetween } from 'use-between';
-import Filter from './Filter';
+import Filter from './Filter2';
 
 const useForm = () => {
     const [formModel, setForm]: any = useState([]);
