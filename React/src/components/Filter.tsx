@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './../App.css';
 import {useSharedForm, useSharedFormEls} from './Form';
 import Select from 'react-select';
-import { TextField } from '@material-ui/core';
+import { Checkbox, TextField } from '@material-ui/core';
 
 declare module 'react' {
   interface HTMLProps<T> {
@@ -18,17 +18,39 @@ const Filter: React.FC = () => {
   const { formModel, add }: any = useSharedForm();
   const { formView, setView }: any = useSharedForm();
   const { formEls, addEls }: any = useSharedFormEls();
+
+  const [state, setstate]: any = useState([]);
   
   // Create task html elements from todo list as (data)
   function createEls(data: any, identifier: any) {
     const todoEls: any = [];
+    const checkbox: any = [];
     // create html element for each todo if the item isn't undefined
     data.forEach((item: any) => {
+      checkbox[item.id] = {"isComplete": item.isComplete};
+      //console.log('checkbox is', checkbox)
+      setstate(checkbox);
+      function handleChange(event: any) {
+        const newModel: any = [];
+        newModel['todos'] = formModel.todos;
+        newModel['users'] = formModel.users;
+        // setstate(event.target.checked)
+        const todo = newModel.todos.find((obj: any) => obj.id == item.id);
+        todo.isComplete = event.target.checked;
+        console.log('event target is', event.target.checked)
+        add(newModel);
+      }
       if (item !== undefined) {
+        const id = item.id;
         todoEls.push(
           <div key={item.id} className={`${identifier}-${item.id}`}>
           <h4>{item.name}</h4>
           <p>{findUser(item.user)}</p>
+          <Checkbox
+              checked={ state.find((obj: any) => obj == id)}
+              onChange={handleChange}
+              inputProps={{ 'aria-label': 'primary checkbox' }}
+            />
         </div>
         )
       }
