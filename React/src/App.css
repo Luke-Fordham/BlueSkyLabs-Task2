@@ -69,6 +69,18 @@
   margin-left: 0;
 }
 
+.Mui-focused {
+  color: rgb(38, 132, 255) !important;
+}
+
+.MuiInput-underline:after {
+  border-bottom: 2px solid rgb(38, 132, 255) !important;
+}
+
+.MuiCheckbox-colorSecondary.Mui-checked {
+  color: rgb(38, 132, 255) !important;
+}
+
 .MuiIconButton-root {
   margin: auto;
   padding: 0 !important;
