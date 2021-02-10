@@ -75,7 +75,7 @@ const filterTodos = (key: any, input: any) => {
     filterArray = filter;
     filterArray['id'] = key;
     setFilter(filterArray)
-    if (filter.check !== (undefined || null)) {
+    if (filter.check !== undefined || null) {
       console.log('check exists')
       todos = formModel.todos.filter((obj: any) => obj.isComplete === filter.check);
     }
