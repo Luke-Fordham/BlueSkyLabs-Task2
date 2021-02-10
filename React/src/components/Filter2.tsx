@@ -27,14 +27,19 @@ const Filter: React.FC = () => {
     const todoEls: any = [];
     // create html element for each todo if the item isn't undefined
     data.forEach((item: any) => {
+      const newView: any = [];
+      newView['todos'] = formView.todos;
+      newView['users'] = formView.users;
       function handleChange(event: any) {
-        const newView: any = [];
-        newView['todos'] = formView.todos;
-        newView['users'] = formView.users;
         const todo = newView.todos.find((obj: any) => obj.id == item.id);
         todo.isComplete = event.target.checked;
         console.log('event target is', event.target.checked) 
         setView(newView);
+      }
+      function changeName() {
+        const todo = newView.todos.find((obj: any) => obj.id == item.id)
+        todo.name = 'changed';
+        setView(newView)
       }
       if (item !== undefined) {
         const id = item.id;
@@ -43,7 +48,7 @@ const Filter: React.FC = () => {
         todoEls.push(
           <ListItem key={item.id} className={`${identifier}-${item.id}`}>
             <Card>
-          <h3>{item.name}</h3>
+          <h3 onClick={changeName}>{item.name}</h3>
           <p>{findUser(item.user)}</p>
               <div className="check-wrapper">
                 <p>Completed:</p>
@@ -180,6 +185,7 @@ const findUser = (key: any) => {
         }
         // set the model state to the formData (returned from the fetch requests)
         add(formData);
+        setView(formData);
     }
     // run the fetchdata function
     fetchData();
@@ -212,7 +218,7 @@ const findUser = (key: any) => {
   // run when the model state changes
   useEffect(() => {
     // set the view state to the model state
-    setView(formModel);
+    //setView(formModel);
     // if the model state contains users
     if (formModel.users) {
       const userDropdown: any = [];

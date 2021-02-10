@@ -93,6 +93,7 @@
 .check-wrapper p {
   margin: auto;
   margin-left: 0;
+  margin-right: 10px;
 }
 
 .Mui-focused {
@@ -120,10 +121,20 @@
   box-shadow: 0px 0px 9px 1px rgb(0 0 0 / 10%) !important;
 }
 
+.MuiList-root {
+  display: flex;
+  /* flex-direction: column; */
+  flex-wrap: wrap;
+}
+
 .MuiListItem-gutters {
   padding: 0 0 10px 0 !important;
 }
 
 .MuiPaper-root {
   color: rgb(69 69 69) !important;
+}
+
+.MuiPaper-rounded {
+  border-radius: 10px !important;
 }
