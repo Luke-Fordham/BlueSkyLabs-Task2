@@ -71,8 +71,9 @@ const filterTodos = (key: any, input: any) => {
     filterArray = filter;
     filterArray['id'] = key;
     setFilter(filterArray)
-    if (filter.check) {
-      todos = formModel.todos.filter((obj: any) => obj.isComplete == filter.check);
+    if (filter.check !== (undefined || null)) {
+      console.log('check exists')
+      todos = formModel.todos.filter((obj: any) => obj.isComplete === filter.check);
     }
     console.log('filter is', filter)
     // set result to todos that either match the key user id OR the array of user ids includes the todo.user id
@@ -135,6 +136,7 @@ const filterTodos = (key: any, input: any) => {
 
   // set the view state to the formData array
   setView(formData)
+  console.log('formData is', formData)
 }
 
 
