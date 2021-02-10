@@ -36,3 +36,40 @@
     transform: rotate(360deg);
   }
 }
+
+.taskList {
+  display: flex;
+  width: 60%;
+  margin: auto;
+  padding: 20px;
+  justify-content: center;
+}
+
+.searchbar{
+  width: 40%;
+}
+
+.user-dropdown {
+  width: 30%;
+  height: 100%;
+  margin: auto;
+  margin-bottom: 0;
+}
+
+.check-wrapper {
+  display: flex;
+  height: fit-content;
+    margin: auto 0;
+    margin-bottom: 5px;
+    width: 20%;
+}
+
+.check-wrapper p {
+  margin: auto;
+}
+
+.MuiIconButton-root {
+  margin: auto;
+  padding: 0 !important;
+}
+

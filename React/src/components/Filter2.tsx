@@ -34,13 +34,13 @@ const Filter: React.FC = () => {
         newView['users'] = formView.users;
         const todo = newView.todos.find((obj: any) => obj.id == item.id);
         todo.isComplete = event.target.checked;
-        console.log('event target is', event.target.checked)
+        console.log('event target is', event.target.checked) 
         setView(newView);
       }
       if (item !== undefined) {
         const id = item.id;
         const status = formView.todos.find((obj: any) => obj.id === id);
-        console.log(status.isComplete)
+        //console.log(status.isComplete)
         todoEls.push(
           <div key={item.id} className={`${identifier}-${item.id}`}>
           <h4>{item.name}</h4>
@@ -271,15 +271,18 @@ const findUser = (key: any) => {
 
 
 return (
-  <div className="TaskList">
-      <TextField label="Search Tasks" onKeyUp={(e: any) => {handleSearch(e.target.value)}} />
-      {formEls.users ? <Select placeholder="User" 
+  <div className="taskList">
+      <TextField className="searchbar" label="Search Tasks" onKeyUp={(e: any) => {handleSearch(e.target.value)}} />
+      {formEls.users ? <Select className="user-dropdown" placeholder="User" 
       options={formEls.users} onChange={(e: any) => {filterTodos(e.value, 'id')}} /> : null}
+      <div className="check-wrapper">
+        <p>Completed:</p>
       <Checkbox
         checked={check}
         onChange={(e: any) => {setCheck((initialValue: any) => !initialValue); filterTodos(e.target.checked, 'check')}}
         inputProps={{ 'aria-label': 'primary checkbox' }}
       />
+      </div>
   </div>
 );
 }
