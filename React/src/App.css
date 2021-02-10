@@ -73,3 +73,17 @@
   padding: 0 !important;
 }
 
+.MuiList-root {
+  margin: auto !important ;
+  width: 60%;
+}
+
+.MuiCard-root {
+  overflow: hidden;
+  width: 100%;
+  padding: 0 20px 20px 20px;
+}
+
+.MuiListItem-gutters {
+  padding: 0 auto !important;
+}

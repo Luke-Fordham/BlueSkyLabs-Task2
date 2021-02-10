@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './../App.css';
 import {useSharedForm, useSharedFormEls} from './Form';
 import Select from 'react-select';
-import { Checkbox, TextField } from '@material-ui/core';
+import { Checkbox, ListItem, TextField, Card } from '@material-ui/core';
 
 declare module 'react' {
   interface HTMLProps<T> {
@@ -25,7 +25,6 @@ const Filter: React.FC = () => {
   // Create task html elements from todo list as (data)
   function createEls(data: any, identifier: any) {
     const todoEls: any = [];
-    const checkbox: any = [];
     // create html element for each todo if the item isn't undefined
     data.forEach((item: any) => {
       function handleChange(event: any) {
@@ -42,7 +41,8 @@ const Filter: React.FC = () => {
         const status = formView.todos.find((obj: any) => obj.id === id);
         //console.log(status.isComplete)
         todoEls.push(
-          <div key={item.id} className={`${identifier}-${item.id}`}>
+          <ListItem key={item.id} className={`${identifier}-${item.id}`}>
+            <Card>
           <h4>{item.name}</h4>
           <p>{findUser(item.user)}</p>
           <Checkbox
@@ -50,7 +50,8 @@ const Filter: React.FC = () => {
               onChange={handleChange}
               inputProps={{ 'aria-label': 'primary checkbox' }}
             />
-        </div>
+            </Card>
+        </ListItem>
         )
       }
   })

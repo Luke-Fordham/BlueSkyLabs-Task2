@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './../App.css';
 import { useBetween } from 'use-between';
 import Filter from './Filter2';
+import { List, ListItem } from '@material-ui/core';
 
 const useForm = () => {
     const [formModel, setForm]: any = useState([]);
@@ -17,14 +18,16 @@ const useForm = () => {
   export const useSharedForm = () => useBetween(useForm);
   export const useSharedFormEls = () => useBetween(useForm);
 
-  const List: React.FC = () => {
+  const TaskList: React.FC = () => {
     //const { formModel }: any = useSharedForm();
     const { formEls }: any = useSharedFormEls();
-    const { formView }: any = useSharedFormEls();
+    //const { formView }: any = useSharedFormEls();
     
     return (
         <div>
+          <List>
         { formEls.todos !== undefined ? formEls.todos : null}
+        </List>
         </div>
     );
   };
@@ -33,7 +36,7 @@ const useForm = () => {
   const Form = () => (
     <>
     <Filter />
-    <List />
+    <TaskList />
     </>
   );
 
