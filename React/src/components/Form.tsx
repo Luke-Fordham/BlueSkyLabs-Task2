@@ -24,7 +24,7 @@ const useForm = () => {
     //const { formView }: any = useSharedFormEls();
     
     return (
-        <div>
+        <div className='tasks-container'>
           <List>
         { formEls.todos !== undefined ? formEls.todos : null}
         </List>

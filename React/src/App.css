@@ -37,12 +37,38 @@
   }
 }
 
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+::-webkit-scrollbar-thumb {
+  background: #888; 
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+
 .taskList {
   display: flex;
   width: 60%;
   margin: auto;
   padding: 20px;
   justify-content: center;
+}
+
+.tasks-container {
+  width: 60%;
+    margin: auto;
+    height: 80vh;
+    overflow: hidden;
+    overflow-y: scroll;
+    border-bottom: 1px solid #ececec;
 }
 
 .searchbar{
@@ -61,7 +87,7 @@
   height: fit-content;
     margin: auto 0;
     margin-bottom: 5px;
-    width: 17%;
+    width: 18%;
 }
 
 .check-wrapper p {
@@ -86,15 +112,12 @@
   padding: 0 !important;
 }
 
-.MuiList-root {
-  margin: auto !important ;
-  width: 60%;
-}
-
 .MuiCard-root {
   overflow: hidden;
-  width: 100%;
+  width: 90% !important;
   padding: 0 20px 20px 20px;
+  margin: auto;
+  box-shadow: 0px 0px 9px 1px rgb(0 0 0 / 10%) !important;
 }
 
 .MuiListItem-gutters {
