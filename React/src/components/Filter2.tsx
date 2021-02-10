@@ -39,12 +39,14 @@ const Filter: React.FC = () => {
       }
       if (item !== undefined) {
         const id = item.id;
+        const status = formView.todos.find((obj: any) => obj.id === id);
+        console.log(status.isComplete)
         todoEls.push(
           <div key={item.id} className={`${identifier}-${item.id}`}>
           <h4>{item.name}</h4>
           <p>{findUser(item.user)}</p>
           <Checkbox
-              checked={ data.find((obj: any) => obj == id)}
+              checked={status.isComplete}
               onChange={handleChange}
               inputProps={{ 'aria-label': 'primary checkbox' }}
             />
