@@ -43,13 +43,16 @@ const Filter: React.FC = () => {
         todoEls.push(
           <ListItem key={item.id} className={`${identifier}-${item.id}`}>
             <Card>
-          <h4>{item.name}</h4>
+          <h3>{item.name}</h3>
           <p>{findUser(item.user)}</p>
-          <Checkbox
-              checked={status.isComplete}
-              onChange={handleChange}
-              inputProps={{ 'aria-label': 'primary checkbox' }}
-            />
+              <div className="check-wrapper">
+                <p>Completed:</p>
+                <Checkbox
+                  checked={status.isComplete}
+                  onChange={handleChange}
+                  inputProps={{ 'aria-label': 'primary checkbox' }}
+                />
+              </div>
             </Card>
         </ListItem>
         )
@@ -275,7 +278,7 @@ const findUser = (key: any) => {
 
 return (
   <div className="taskList">
-      <TextField className="searchbar" label="Search Tasks" onKeyUp={(e: any) => {handleSearch(e.target.value)}} />
+      <TextField className="searchbar" label="Search Tasks" onKeyUp={(e: any) => {handleSearch(e.target.value.toLowerCase())}} />
       {formEls.users ? <Select className="user-dropdown" placeholder="User" 
       options={formEls.users} onChange={(e: any) => {filterTodos(e.value, 'id')}} /> : null}
       <div className="check-wrapper">
