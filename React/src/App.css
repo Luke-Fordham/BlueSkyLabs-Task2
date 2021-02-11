@@ -1,38 +1,174 @@
-.App {
-  text-align: center;
+* {
+  box-sizing: border-box;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 500 !important;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+p {
+  font-weight: 400 !important;
+  color: rgb(69 69 69) !important;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+::-webkit-scrollbar-thumb {
+  background: #888; 
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+
+.taskList {
+  display: flex;
+  width: 60%;
+  margin: auto;
+  padding: 20px;
+  justify-content: center;
+}
+
+.tasks-container {
+  width: 65%;
+    margin: auto;
+    height: 80vh;
+    overflow: hidden;
+    overflow-y: scroll;
+    border-bottom: 1px solid #ececec;
+}
+
+.searchbar{
+  width: 40%;
+}
+
+.user-dropdown {
+  width: 30%;
+  height: 100%;
+  margin: auto;
+  margin-bottom: 0;
+}
+
+.check-wrapper {
+  display: flex;
+  height: fit-content;
+    margin: auto 0;
+    margin-bottom: 5px;
+    width: 18%;
+}
+
+.check-wrapper p {
+  margin: auto;
+  margin-left: 0;
+  margin-right: 10px;
+}
+
+.Mui-focused {
+  color: rgb(38, 132, 255) !important;
+}
+
+.MuiInput-underline:after {
+  border-bottom: 2px solid rgb(38, 132, 255) !important;
+}
+
+.MuiCheckbox-colorSecondary.Mui-checked {
+  color: rgb(38, 132, 255) !important;
+}
+
+.MuiIconButton-root {
+  margin: auto;
+  padding: 0 !important;
+}
+
+.MuiCard-root {
+  overflow: hidden;
+  width: 90% !important;
+  padding: 0 20px 20px 20px;
+  margin: auto;
+  box-shadow: 0px 0px 5px 1px rgb(0 0 0 / 10%) !important;
+}
+
+.MuiList-root {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.MuiListItem-gutters {
+  padding: 0 0 10px 0 !important;
+}
+
+
+.MuiPaper-rounded {
+  border-radius: 10px !important;
+}
+
+.edit-modal {
+  position: absolute;
+    width: 100% !important;
+    height: 100%;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 100;
+    left: 0;
+    padding: 0 !important;
+    background-color: #ffffffd1 !important;
+}
+
+.edit-card {
+  width: 30% !important;
+  height: 20% !important;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  bottom: 20%;
+  right: 0;
+  left: 0;
+  z-index: 100;
+  display: flex;
+  padding: 0;
+}
+
+.edit-input-wrapper {
+  margin: auto;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  width: 70%;
 }
 
-.App-link {
-  color: #61dafb;
+.edit-btn-wrapper {
+  display: flex;
+  padding: 20px;
+  justify-content: space-between;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.edit-btn-wrapper button {
+  padding: 20px;
+}
+
+.edit-input {
+  width: 100%;
+}
+
+.edit-icon {
+  transition: transform ease 0.1s !important;
+  margin: auto 20px;
+  width: 20px !important;
+}
+.edit-icon:hover {
+  transform: scale(1.2);
+  cursor: pointer;
+}
+
+.todo-title-wrapper {
+  display: flex;
+  width: fit-content;
+  width: -moz-fit-content;
 }

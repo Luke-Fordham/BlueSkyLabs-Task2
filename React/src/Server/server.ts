@@ -100,6 +100,12 @@ export function makeServer () {
                 let attrs = JSON.parse(request.requestBody)
                 return schema.todos.create(attrs)
             })
+            this.put("/todo/:id/update", (schema: any, request)=>{
+                const todoId = request.params.id
+                let todo = schema.todos.find(todoId);
+                todo = request.requestBody;
+                return {success:true, 'newTodo': todo}
+            })
 
 
         }
