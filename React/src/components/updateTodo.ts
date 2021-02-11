@@ -10,7 +10,7 @@
             const response = await fetch(`api/todo/${todo.id}/update`, settings);
             const status = await response.json();
             console.log('status of put request:', status)
-            return true;
+            return {"status": true, "newTodo": status.newTodo};
         } 
         // catch errors
         catch (e) {

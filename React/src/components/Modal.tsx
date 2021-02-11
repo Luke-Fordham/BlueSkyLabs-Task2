@@ -21,7 +21,7 @@ import {updateTodo} from './updateTodo'
         todo.name = input;
         const test = await updateTodo(todo);
         if (test) {
-            add(newModel)
+;            add(newModel)
         } else {
             changeModal({'status': true, 'message': 'ERROR: could not update project'})
         }

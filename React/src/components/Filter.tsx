@@ -325,7 +325,7 @@ return (
       {formEls.users ? <Select className="user-dropdown" placeholder="User" 
       options={formEls.users} onChange={(e: any) => {filterTodos(e.value, 'id')}} /> : null}
       <div className="check-wrapper">
-        <p>Completed:</p>
+        <p>Only show completed:</p>
       <Checkbox
         checked={check}
         onChange={(e: any) => {setCheck((initialValue: any) => !initialValue); filterTodos(e.target.checked, 'check')}}
