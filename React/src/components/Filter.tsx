@@ -5,6 +5,7 @@ import {useSharedForm} from './Form';
 import Modal from './Modal';
 import Select from 'react-select';
 import { Checkbox, ListItem, TextField, Card} from '@material-ui/core';
+import { updateTodo } from './updateTodo';
 
 declare module 'react' {
   interface HTMLProps<T> {
@@ -39,11 +40,14 @@ const Filter: React.FC = () => {
       const newView: any = [];
       newView['todos'] = formView.todos;
       newView['users'] = formView.users;
-      function handleChange(event: any) {
+      async function handleChange(event: any) {
         const todo = newView.todos.find((obj: any) => obj.id == item.id);
         todo.isComplete = event.target.checked;
         console.log('event target is', event.target.checked) 
-        setView(newView);
+        const test = await updateTodo(item);
+        if (test) {
+          setView(newView);
+      }
       }
       function changeName() {
         // const todo = newView.todos.find((obj: any) => obj.id == item.id)
@@ -75,10 +79,6 @@ const Filter: React.FC = () => {
   })
     return todoEls;
   }
-
-  useEffect(() => {
-    console.log(modalState);
-  }, [modalState])
 
   const [filter, setFilter] : any = useState([]);
 
