@@ -153,8 +153,8 @@
 }
 
 .edit-card {
-  width: 30% !important;
-  height: 30% !important;
+  width: 20% !important;
+  height: 20% !important;
   margin: auto;
   position: absolute;
   top: 0;
@@ -162,4 +162,22 @@
   right: 0;
   left: 0;
   z-index: 100;
+  display: flex;
+  padding: 0;
+}
+
+.edit-input-wrapper {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.edit-btn-wrapper {
+  display: flex;
+  padding: 20px;
+  justify-content: space-between;
+}
+
+.edit-btn-wrapper button {
+  padding: 20px;
 }

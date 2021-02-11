@@ -199,7 +199,7 @@ const findUser = (key: any) => {
         }
         // set the model state to the formData (returned from the fetch requests)
         add(formData);
-        setView(formData);
+        // setView(formData);
     }
     // run the fetchdata function
     fetchData();
@@ -232,7 +232,7 @@ const findUser = (key: any) => {
   // run when the model state changes
   useEffect(() => {
     // set the view state to the model state
-    //setView(formModel);
+    setView(formModel);
     // if the model state contains users
     if (formModel.users) {
       const userDropdown: any = [];
