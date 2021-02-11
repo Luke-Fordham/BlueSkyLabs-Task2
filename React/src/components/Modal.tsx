@@ -38,7 +38,7 @@ import {updateTodo} from './updateTodo'
                 <div className="edit-input-wrapper">
                 {modalState.message ? <h4>{modalState.message}</h4> : <div>
                 <p>Enter new project name</p>
-                <TextField onKeyUp={(e: any) => {setInput(e.target.value)}} placeholder={modalState.todo.name}></TextField>
+                <TextField className="edit-input" onKeyUp={(e: any) => {setInput(e.target.value)}} placeholder={modalState.todo.name}></TextField>
                 <div className="edit-btn-wrapper">
                     <Button onClick={() => {handleSave(); changeModal({'status': false, 'todo': ''})}}>Save</Button><Button onClick={(e: any) => { changeModal({'status': false, 'todo': ''})}}>Cancel</Button>
                 </div>

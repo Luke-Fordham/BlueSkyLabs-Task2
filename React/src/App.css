@@ -1,40 +1,14 @@
-.App {
-  text-align: center;
+* {
+  box-sizing: border-box;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 500 !important;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+p {
+  font-weight: 400 !important;
+  color: rgb(69 69 69) !important;
 }
 
 ::-webkit-scrollbar {
@@ -123,7 +97,6 @@
 
 .MuiList-root {
   display: flex;
-  /* flex-direction: column; */
   flex-wrap: wrap;
 }
 
@@ -131,9 +104,6 @@
   padding: 0 0 10px 0 !important;
 }
 
-.MuiPaper-root {
-  color: rgb(69 69 69) !important;
-}
 
 .MuiPaper-rounded {
   border-radius: 10px !important;
@@ -153,7 +123,7 @@
 }
 
 .edit-card {
-  width: 20% !important;
+  width: 30% !important;
   height: 20% !important;
   margin: auto;
   position: absolute;
@@ -170,6 +140,7 @@
   margin: auto;
   display: flex;
   flex-direction: column;
+  width: 70%;
 }
 
 .edit-btn-wrapper {
@@ -180,4 +151,24 @@
 
 .edit-btn-wrapper button {
   padding: 20px;
+}
+
+.edit-input {
+  width: 100%;
+}
+
+.edit-icon {
+  transition: transform ease 0.1s !important;
+  margin: auto 20px;
+  width: 20px !important;
+}
+.edit-icon:hover {
+  transform: scale(1.2);
+  cursor: pointer;
+}
+
+.todo-title-wrapper {
+  display: flex;
+  width: fit-content;
+  width: -moz-fit-content;
 }

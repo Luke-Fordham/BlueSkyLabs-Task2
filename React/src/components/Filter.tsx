@@ -5,6 +5,7 @@ import {useSharedForm} from './Form';
 import Modal from './Modal';
 import Select from 'react-select';
 import { Checkbox, ListItem, TextField, Card} from '@material-ui/core';
+import EditIcon from '@material-ui/icons/Edit';
 import { updateTodo } from './updateTodo';
 
 
@@ -73,7 +74,7 @@ const Filter: React.FC = () => {
         todoEls.push(
           <ListItem key={item.id} className={`${identifier}-${item.id}`}>
             <Card>
-          <h3 onClick={openEdit}>{item.name}</h3>
+          <div className="todo-title-wrapper"><h3>{item.name}</h3><EditIcon className='edit-icon' onClick={openEdit}></EditIcon></div>
           <p>{findUser(item.user)}</p>
               <div className="check-wrapper">
                 <p>Completed:</p>
