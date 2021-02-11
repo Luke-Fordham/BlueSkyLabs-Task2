@@ -20,7 +20,10 @@ import {updateTodo} from './updateTodo'
         let todo = newModel.todos.find((obj: any) => obj.id === modalState.todo.id);
         todo.name = input;
         const test = await updateTodo(todo);
-        if (test) {
+        if (test.status) {
+            // set todo to object returned from put request
+            todo = test.newTodo;
+            // update model
 ;            add(newModel)
         } else {
             changeModal({'status': true, 'message': 'ERROR: could not update project'})

@@ -40,20 +40,23 @@ const Filter: React.FC = () => {
     const todoEls: any = [];
     // create html element for each todo if the item isn't undefined
     data.forEach((item: any) => {
-      const newView: any = [];
-      newView['todos'] = formView.todos;
-      newView['users'] = formView.users;
+      const newModel: any = [];
+      newModel['todos'] = formModel.todos;
+      newModel['users'] = formModel.users;
       // handle change function 
       async function handleChange(event: any) {
         // find todo object in view state
-        const todo = newView.todos.find((obj: any) => obj.id == item.id);
+        let todo = newModel.todos.find((obj: any) => obj.id == item.id);
         // set isComplete to status of checkbox
         todo.isComplete = event.target.checked;
         // run PUT request with the todo object and return true if successful
         const test = await updateTodo(item);
         // if PUT request successful, update the view
-        if (test) {
-          setView(newView);
+        if (test.status) {
+          // set todo to object returned from put request
+          todo = test.newTodo;
+          // update view
+          add(newModel);
       }
       }
       // opens edit modal 
