@@ -39,17 +39,19 @@ p {
 
 .taskList {
   display: flex;
-  width: 50%;
+  width: 60%;
   margin: 40px auto;
-  padding: 20px 0 30px 20px;
   justify-content: center;
   background-color: white;
   border-radius: 10px;
   box-shadow: 0px 0px 5px 1px rgb(0 0 0 / 10%) !important;
+  height: fit-content;
+  flex-wrap: wrap;
+  max-width: 90vw;
 }
 
 .tasks-container {
-  width: 55%;
+  width: 65%;
     margin: auto;
     height: 80vh;
     overflow: hidden;
@@ -58,33 +60,40 @@ p {
 }
 
 .searchbar{
-  width: 40%;
+  width: 35%;
+  min-width: 200px !important;
+  height: 50px;
+    margin: 20px !important;
 }
 
 .user-dropdown {
   width: 30%;
+  height: 50px;
+  min-width: 240px !important;
+  margin: 20px;
+}
+.user-dropdown>div {
   height: 100%;
-  margin: auto;
-  margin-bottom: 0;
 }
 
 .check-wrapper {
   display: flex;
-  height: fit-content;
-    margin: auto 0;
-    margin-bottom: 5px;
-    width: 24%;
+  height: -moz-fit-content;
+  height: 50px;
+  width: fit-content;
+  min-width: 217px !important;
+  margin: 20px;
 }
 
 .check-wrapper p {
   margin: auto;
   margin-left: 0;
   margin-right: 10px;
-  /* padding: 10px 0; */
 }
 
 .user-name {
   font-weight: 300!important;
+  margin-top: 0;
 }
 
 .Mui-focused {
@@ -106,19 +115,34 @@ p {
 
 .MuiCard-root {
   overflow: hidden;
-  width: 90% !important;
+  width: 100% !important;
   padding: 0 20px 20px 20px;
-  margin: auto;
+  /* margin: auto; */
   box-shadow: 0px 0px 5px 1px rgb(0 0 0 / 10%) !important;
+  height: 100%;
+  margin: 0 20px 0 0;
 }
 
 .MuiList-root {
   display: flex;
   flex-wrap: wrap;
+  display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 
 .MuiListItem-gutters {
   padding: 0 0 15px 0 !important;
+}
+
+.MuiListItem-root {
+  width: auto!important;
+  min-width: 300px;
+  flex-grow: 2;
+  height: auto;
+  display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 
 
