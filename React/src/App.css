@@ -118,7 +118,7 @@
   width: 90% !important;
   padding: 0 20px 20px 20px;
   margin: auto;
-  box-shadow: 0px 0px 9px 1px rgb(0 0 0 / 10%) !important;
+  box-shadow: 0px 0px 5px 1px rgb(0 0 0 / 10%) !important;
 }
 
 .MuiList-root {
@@ -137,4 +137,29 @@
 
 .MuiPaper-rounded {
   border-radius: 10px !important;
+}
+
+.edit-modal {
+  position: absolute;
+    width: 100% !important;
+    height: 100%;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 100;
+    left: 0;
+    padding: 0 !important;
+    background-color: #ffffffd1 !important;
+}
+
+.edit-card {
+  width: 30% !important;
+  height: 30% !important;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  bottom: 20%;
+  right: 0;
+  left: 0;
+  z-index: 100;
 }

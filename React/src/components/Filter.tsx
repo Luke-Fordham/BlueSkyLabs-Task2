@@ -1,78 +1,128 @@
 import React, { useEffect, useState } from 'react';
 import './../App.css';
-import {useSharedForm, useSharedFormEls} from './Form';
+import { useBetween } from 'use-between';
+import {useSharedForm} from './Form';
+import Modal from './Modal';
 import Select from 'react-select';
-import { Checkbox, TextField } from '@material-ui/core';
+import { Checkbox, ListItem, TextField, Card} from '@material-ui/core';
 
 declare module 'react' {
   interface HTMLProps<T> {
      value?:string;
  }
-
 }
+
+const useModal = () => {
+  const [modalState, setModal] : any = useState({"todo": '', "status": false});
+  const changeModal = (value: any) => {setModal(value);} 
+  return ({modalState, changeModal});
+}
+export const useSharedModal = () => useBetween(useModal);
 
 // Filter component
 const Filter: React.FC = () => {
 
   // filter checkbox state
-  const [check, setCheck]: any = useState(false); 
+  const [check, setCheck]: any = useState(false);
 
   // use-between functions destructuring
   const { formModel, add }: any = useSharedForm();
   const { formView, setView }: any = useSharedForm();
-  const { formEls, addEls }: any = useSharedFormEls();
+  const { formEls, addEls }: any = useSharedForm();
+  const {modalState, changeModal}: any = useSharedModal()
   
   // Create task html elements from todo list as (data)
   function createEls(data: any, identifier: any) {
     const todoEls: any = [];
-    const checkbox: any = [];
     // create html element for each todo if the item isn't undefined
     data.forEach((item: any) => {
+      const newView: any = [];
+      newView['todos'] = formView.todos;
+      newView['users'] = formView.users;
       function handleChange(event: any) {
-        const newView: any = [];
-        newView['todos'] = formView.todos;
-        newView['users'] = formView.users;
         const todo = newView.todos.find((obj: any) => obj.id == item.id);
         todo.isComplete = event.target.checked;
-        console.log('event target is', event.target.checked)
+        console.log('event target is', event.target.checked) 
         setView(newView);
+      }
+      function changeName() {
+        // const todo = newView.todos.find((obj: any) => obj.id == item.id)
+        // todo.name = 'changed';
+        // setView(newView)
+        changeModal({"status": true, "todo": item})
       }
       if (item !== undefined) {
         const id = item.id;
+        const status = formView.todos.find((obj: any) => obj.id === id);
+        //console.log(status.isComplete)
         todoEls.push(
-          <div key={item.id} className={`${identifier}-${item.id}`}>
-          <h4>{item.name}</h4>
+          <ListItem key={item.id} className={`${identifier}-${item.id}`}>
+            <Card>
+          <h3 onClick={changeName}>{item.name}</h3>
           <p>{findUser(item.user)}</p>
-          <Checkbox
-              checked={ data.find((obj: any) => obj == id)}
-              onChange={handleChange}
-              inputProps={{ 'aria-label': 'primary checkbox' }}
-            />
-        </div>
+              <div className="check-wrapper">
+                <p>Completed:</p>
+                <Checkbox
+                  checked={status.isComplete}
+                  onChange={handleChange}
+                  inputProps={{ 'aria-label': 'primary checkbox' }}
+                />
+              </div>
+            </Card>
+        </ListItem>
         )
       }
   })
     return todoEls;
   }
 
+  useEffect(() => {
+    console.log(modalState);
+  }, [modalState])
+
+  const [filter, setFilter] : any = useState([]);
+
 // filter the tasks and reset the view state -- key: keyword (searchbar) / user Id (dropdown filter) -- input: defines type of search
 const filterTodos = (key: any, input: any) => {
+  let filterArray: any = [];
   // declare result variable
   let result: any = '';
   const formData: any = [];
   // if the input is id (user dropdown)
   if (input === 'id'){
+    let todos = formModel.todos;
+    filterArray = filter;
+    filterArray['id'] = key;
+    setFilter(filterArray)
+    if (filter.check !== undefined || null) {
+      console.log('check exists')
+      todos = formModel.todos.filter((obj: any) => obj.isComplete === filter.check);
+    }
+    console.log('filter is', filter)
     // set result to todos that either match the key user id OR the array of user ids includes the todo.user id
-    result = formModel.todos.filter((obj: any) => obj.user == key || key.includes(obj.user));
+    result = todos.filter((obj: any) => obj.user == key || key.includes(obj.user));
     // set the users in formdata to include only the user selected in the user dropdown
     formData['users'] = formModel.users.filter((obj: any) => obj.id == key || key.includes(obj.id));
   } 
   // if the input is a keyword (searchbar)
   if (input ==='keyword') {
-    // filter the users in the model state by getIds('view'): (gets all users in the view state) and set 'todos' variable to all the todos relevent to that todo.user id
-    const todos = formModel.todos.filter((obj: any) => getIds('view').includes(obj.user));
+    // filterArray = filter;
+    // filterArray['keyword'] = key;
+    let todos = formModel.todos;
+    // setFilter(filterArray)
+
+    if (filter.id && filter.check) {
+      todos = formModel.todos.filter((obj: any) => obj.isComplete == filter.check && ( obj.user == filter.id || filter.id.includes(obj.user)));
+    } else 
+    if (filter.id) {
+      todos = formModel.todos.filter((obj: any) => obj.user == filter.id || filter.id.includes(obj.user));
+    } else
+    if (filter.check) {
+      todos = formModel.todos.filter((obj: any) => obj.isComplete == filter.check);
+    }
+    
     // set result to all the todos (already filtered by user dropdown) that include the search keyword/letters
-    result =todos.filter((obj: any) => obj.name.toLowerCase().includes(key));
+    result = todos.filter((obj: any) => obj.name.toLowerCase().includes(key));
     // if the view already has users
     if (formView.users) {
       // set the users in the formdata to the users in the view state
@@ -84,9 +134,16 @@ const filterTodos = (key: any, input: any) => {
     }
   } 
   if (input === 'check') {
+    filterArray = filter;
+    filterArray['check'] = key;
+    let todos = formModel.todos;
+    setFilter(filterArray)
+    if (filter.id) {
+      todos = formModel.todos.filter((obj: any) => obj.user == filter.id || filter.id.includes(obj.user));
+    }
     console.log("key is", key)
-    const todos = formModel.todos.filter((obj: any) => getIds('view').includes(obj.user));
     result = todos.filter((obj: any) => obj.isComplete == key);
+
     if (formView.users) {
       // set the users in the formdata to the users in the view state
       formData['users'] = formView.users;
@@ -102,6 +159,7 @@ const filterTodos = (key: any, input: any) => {
 
   // set the view state to the formData array
   setView(formData)
+  console.log('formData is', formData)
 }
 
 
@@ -141,6 +199,7 @@ const findUser = (key: any) => {
         }
         // set the model state to the formData (returned from the fetch requests)
         add(formData);
+        setView(formData);
     }
     // run the fetchdata function
     fetchData();
@@ -173,7 +232,7 @@ const findUser = (key: any) => {
   // run when the model state changes
   useEffect(() => {
     // set the view state to the model state
-    setView(formModel);
+    //setView(formModel);
     // if the model state contains users
     if (formModel.users) {
       const userDropdown: any = [];
@@ -238,15 +297,19 @@ const findUser = (key: any) => {
 
 
 return (
-  <div className="TaskList">
-      <TextField label="Search Tasks" onKeyUp={(e: any) => {handleSearch(e.target.value)}} />
-      {formEls.users ? <Select placeholder="User" 
+  <div className="taskList">
+      { modalState.status === true ? <Modal /> : null}
+      <TextField className="searchbar" label="Search Tasks" onKeyUp={(e: any) => {handleSearch(e.target.value.toLowerCase())}} />
+      {formEls.users ? <Select className="user-dropdown" placeholder="User" 
       options={formEls.users} onChange={(e: any) => {filterTodos(e.value, 'id')}} /> : null}
+      <div className="check-wrapper">
+        <p>Completed:</p>
       <Checkbox
         checked={check}
         onChange={(e: any) => {setCheck((initialValue: any) => !initialValue); filterTodos(e.target.checked, 'check')}}
         inputProps={{ 'aria-label': 'primary checkbox' }}
       />
+      </div>
   </div>
 );
 }
