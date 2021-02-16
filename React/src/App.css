@@ -57,6 +57,7 @@ p {
     overflow: hidden;
     overflow-y: scroll;
     border-bottom: 1px solid #ececec;
+    padding-left: 30px;
 }
 
 .searchbar{
@@ -235,4 +236,8 @@ p {
   top: 30px !important;
   right: 50px !important;
   box-shadow: 0px 0px 5px 1px rgb(0 0 0 / 10%) !important;
+}
+
+.add-task-button:hover {
+  background-color: rgb(226, 226, 226) !important;
 }
