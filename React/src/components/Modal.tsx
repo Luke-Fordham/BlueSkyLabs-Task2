@@ -30,7 +30,6 @@ import {createTodo} from './createTodo'
             todo = test.newTodo;
             // update model
             add(newModel)
-            setInput('');
         } else {
             changeModal({'status': true, 'message': 'ERROR: could not update project'})
         }
