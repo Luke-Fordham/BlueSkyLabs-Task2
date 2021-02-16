@@ -53,7 +53,7 @@ import {createTodo} from './createTodo'
             newModel.todos.push(todo)
             //console.log(newModel)
             // update model
-;            //add(newModel)
+;            add(newModel)
         } else {
             changeModal({'status': true, 'message': 'ERROR: could not add task'})
         }
