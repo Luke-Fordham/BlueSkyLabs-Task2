@@ -10,6 +10,7 @@ import {
 } from "miragejs"
 import * as faker from 'faker';
 import { serialize } from "v8";
+import { stringify } from "querystring";
 
 
 
@@ -31,7 +32,7 @@ export function makeServer () {
         },
         models:{
             todo:Model.extend({
-                user: belongsTo()
+                user: belongsTo('user')
             }),
             user:Model.extend({
                 todos: hasMany()
@@ -98,6 +99,9 @@ export function makeServer () {
             })
             this.post("/todo/create", (schema:any,request)=>{
                 let attrs = JSON.parse(request.requestBody)
+                const user = schema.users.find(attrs.user);
+                attrs.user = user;
+                if (attrs)
                 return schema.todos.create(attrs)
             })
             this.put("/todo/:id/update", (schema: any, request)=>{

@@ -72,6 +72,10 @@ p {
   min-width: 240px !important;
   margin: 20px;
 }
+
+.user-dropdown-add {
+  margin: 20px 0;
+}
 /* .user-dropdown>div {
   height: 100%;
 } */
@@ -173,7 +177,7 @@ p {
 
 .edit-card {
   width: 30% !important;
-  height: 20% !important;
+  height: 40% !important;
   margin: auto;
   position: absolute;
   top: 0;
@@ -190,6 +194,7 @@ p {
   display: flex;
   flex-direction: column;
   width: 70%;
+  height: 80%;
 }
 
 .edit-btn-wrapper {

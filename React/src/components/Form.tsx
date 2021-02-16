@@ -3,6 +3,7 @@ import './../App.css';
 import { useBetween } from 'use-between';
 import Filter from './Filter';
 import { List } from '@material-ui/core';
+import AddTask from './AddTask';
 
 const useForm = () => {
     const [formModel, setForm]: any = useState([]);
@@ -35,6 +36,7 @@ const useForm = () => {
     <>
     <Filter />
     <TaskList />
+    <AddTask />
     </>
   );
 

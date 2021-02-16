@@ -1,16 +1,21 @@
-import React, { useCallback, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './../App.css';
 import {useSharedForm} from './Form';
 import {useSharedModal} from './Filter';
+import Select from 'react-select';
 import { Button, Card, TextField } from '@material-ui/core';
 import {updateTodo} from './updateTodo'
+import {createTodo} from './createTodo'
 
   const Modal: React.FC = () => {
 
     const { formModel, add }: any = useSharedForm();
+    const { formEls, addEls }: any = useSharedForm();
     const { modalState, changeModal }: any = useSharedModal();
 
     const [input, setInput]: any = useState('');
+    const [user, setUser]: any = useState('');
+    const [checkbox, setCheckbox]: any = useState(false);
 
 
     async function handleSave() {
@@ -24,9 +29,33 @@ import {updateTodo} from './updateTodo'
             // set todo to object returned from put request
             todo = test.newTodo;
             // update model
-;            add(newModel)
+            add(newModel)
+            setInput('');
         } else {
             changeModal({'status': true, 'message': 'ERROR: could not update project'})
+        }
+    }
+
+    async function handleAdd() {
+        let newTodo: any = {};
+        newTodo['isComplete'] = checkbox;
+        newTodo['name'] = input;
+        const todoIndex = (formModel.todos.length + 1)
+        newTodo['id'] = todoIndex;
+        newTodo['user'] = user;
+        const test = await createTodo(newTodo);
+        if (test.status) {
+            let newModel: any = [];
+            newModel['users'] = formModel.users;
+            newModel['todos'] = formModel.todos;
+            // set todo to object returned from put request
+            const todo = test.newTodo.todo;
+            newModel.todos.push(todo)
+            //console.log(newModel)
+            // update model
+;            //add(newModel)
+        } else {
+            changeModal({'status': true, 'message': 'ERROR: could not add task'})
         }
     }
     
@@ -40,7 +69,16 @@ import {updateTodo} from './updateTodo'
                 <p>Enter new project name</p>
                 <TextField className="edit-input" onKeyUp={(e: any) => {setInput(e.target.value)}} placeholder={modalState.todo.name}></TextField>
                 <div className="edit-btn-wrapper">
-                    <Button onClick={() => {handleSave(); changeModal({'status': false, 'todo': ''})}}>Save</Button><Button onClick={(e: any) => { changeModal({'status': false, 'todo': ''})}}>Cancel</Button>
+                    { modalState.addTask ? 
+                    <div>
+                        <Select className="user-dropdown-add" placeholder="User" options={formEls.users} onChange={(e: any) => {setUser(e.value)}} />
+                        <Button onClick={() => {handleAdd(); changeModal({'status': false, 'todo': ''})}}>Add</Button>
+                        <Button onClick={(e: any) => { changeModal({'status': false, 'todo': ''})}}>Cancel</Button>
+                    </div>  :      
+                    <div>
+                        <Button onClick={() => {handleSave(); changeModal({'status': false, 'todo': ''})}}>Save</Button>
+                        <Button onClick={(e: any) => { changeModal({'status': false, 'todo': ''})}}>Cancel</Button>
+                    </div> }
                 </div>
                 </div>  }
                 </div>

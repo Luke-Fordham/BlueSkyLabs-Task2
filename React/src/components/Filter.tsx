@@ -191,11 +191,9 @@ const findUser = (key: any) => {
   return result.firstName + ' ' + result.lastName;
 }
 
-// runs when the component mounts
-  useEffect(()=> {
-    const formData: any = [];
     // fetchData function
     const fetchData: VoidFunction = async () => {
+      const formData: any = [];
       // get all the users from the server
         try{
             const response = await fetch('api/users');
@@ -222,6 +220,9 @@ const findUser = (key: any) => {
         add(formData);
         // setView(formData);
     }
+
+// runs when the component mounts
+  useEffect(()=> {
     // run the fetchdata function
     fetchData();
 }, []);
