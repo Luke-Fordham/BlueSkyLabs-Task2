@@ -72,8 +72,12 @@ p {
   min-width: 240px !important;
   margin: 20px;
 }
-.user-dropdown>div {
+/* .user-dropdown>div {
   height: 100%;
+} */
+
+.css-yk16xz-control, .css-1pahdxg-control {
+  min-height: 50px !important;
 }
 
 .check-wrapper {
