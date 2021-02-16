@@ -51,7 +51,6 @@ import {createTodo} from './createTodo'
             // set todo to object returned from put request
             const todo = test.newTodo.todo;
             newModel.todos.push(todo)
-            //console.log(newModel)
             // update model
 ;            add(newModel)
         } else {
@@ -71,7 +70,7 @@ import {createTodo} from './createTodo'
                 <div className="edit-btn-wrapper">
                     { modalState.addTask ? 
                     <div>
-                        <Select className="user-dropdown-add" placeholder="User" options={formEls.users} onChange={(e: any) => {setUser(e.value)}} />
+                        <Select className="user-dropdown-add" placeholder="User" options={formEls.users.filter((obj: any) => obj.label !== "All Users")} onChange={(e: any) => {setUser(e.value)}} />
                         <Button onClick={() => {handleAdd(); changeModal({'status': false, 'todo': ''})}}>Add</Button>
                         <Button onClick={(e: any) => { changeModal({'status': false, 'todo': ''})}}>Cancel</Button>
                     </div>  :      
