@@ -24,9 +24,9 @@ p {
   width: 10px;
 }
 
-::-webkit-scrollbar-track {
+/* ::-webkit-scrollbar-track {
   background: #f1f1f1; 
-}
+} */
  
 ::-webkit-scrollbar-thumb {
   background: #888; 
@@ -71,6 +71,10 @@ p {
   height: 50px;
   min-width: 240px !important;
   margin: 20px;
+}
+
+.user-dropdown-add {
+  margin: 20px 0;
 }
 /* .user-dropdown>div {
   height: 100%;
@@ -173,7 +177,7 @@ p {
 
 .edit-card {
   width: 30% !important;
-  height: 20% !important;
+  height: 40% !important;
   margin: auto;
   position: absolute;
   top: 0;
@@ -190,6 +194,7 @@ p {
   display: flex;
   flex-direction: column;
   width: 70%;
+  height: 80%;
 }
 
 .edit-btn-wrapper {
@@ -220,4 +225,14 @@ p {
   width: fit-content;
   width: -moz-fit-content;
   padding: 10px 0 0 0;
+}
+
+.add-task-button {
+  padding: 13px 15px !important;
+  border-radius: 100px !important;
+  position: absolute !important;
+  background-color: white !important;
+  top: 30px !important;
+  right: 50px !important;
+  box-shadow: 0px 0px 5px 1px rgb(0 0 0 / 10%) !important;
 }

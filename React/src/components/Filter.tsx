@@ -51,6 +51,7 @@ const Filter: React.FC = () => {
         // set isComplete to status of checkbox
         todo.isComplete = event.target.checked;
         // run PUT request with the todo object and return true if successful
+        add(newModel);
         const test = await updateTodo(item);
         // if PUT request successful, update the view
         if (test.status) {
@@ -191,11 +192,9 @@ const findUser = (key: any) => {
   return result.firstName + ' ' + result.lastName;
 }
 
-// runs when the component mounts
-  useEffect(()=> {
-    const formData: any = [];
     // fetchData function
     const fetchData: VoidFunction = async () => {
+      const formData: any = [];
       // get all the users from the server
         try{
             const response = await fetch('api/users');
@@ -222,6 +221,9 @@ const findUser = (key: any) => {
         add(formData);
         // setView(formData);
     }
+
+// runs when the component mounts
+  useEffect(()=> {
     // run the fetchdata function
     fetchData();
 }, []);
