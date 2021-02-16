@@ -8,7 +8,7 @@ import { Button } from '@material-ui/core';
     const { modalState, changeModal }: any = useSharedModal();
     
     return (
-        <Button onClick={(e: any) => { changeModal({'status': true, 'todo': '', 'addTask': true})}}>
+        <Button className='add-task-button' onClick={(e: any) => { changeModal({'status': true, 'todo': '', 'addTask': true})}}>
             Add Task
         </Button>
     );
