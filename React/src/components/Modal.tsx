@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './../App.css';
 import {useSharedForm} from './Form';
 import {useSharedModal} from './Filter';
@@ -10,12 +10,12 @@ import {createTodo} from './createTodo'
   const Modal: React.FC = () => {
 
     const { formModel, add }: any = useSharedForm();
-    const { formEls, addEls }: any = useSharedForm();
+    const { formEls }: any = useSharedForm();
     const { modalState, changeModal }: any = useSharedModal();
 
     const [input, setInput]: any = useState('');
     const [user, setUser]: any = useState('');
-    const [checkbox, setCheckbox]: any = useState(false);
+    const [checkbox]: any = useState(false);
 
 
     async function handleSave() {

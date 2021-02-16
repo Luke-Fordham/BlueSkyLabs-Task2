@@ -47,7 +47,7 @@ const Filter: React.FC = () => {
       // handle change function 
       async function handleChange(event: any) {
         // find todo object in view state
-        let todo = newModel.todos.find((obj: any) => obj.id == item.id);
+        let todo = newModel.todos.find((obj: any) => obj.id === item.id);
         // set isComplete to status of checkbox
         todo.isComplete = event.target.checked;
         // run PUT request with the todo object and return true if successful
@@ -117,9 +117,9 @@ const filterTodos = (key: any, input: any) => {
     }
     //console.log('filter is', filter)
     // set result to todos that either match the key user id OR the array of user ids includes the todo.user id
-    result = todos.filter((obj: any) => obj.user == key || key.includes(obj.user));
+    result = todos.filter((obj: any) => obj.user === key || key.includes(obj.user));
     // set the users in formdata to include only the user selected in the user dropdown
-    formData['users'] = formModel.users.filter((obj: any) => obj.id == key || key.includes(obj.id));
+    formData['users'] = formModel.users.filter((obj: any) => obj.id === key || key.includes(obj.id));
   } 
   // if the input is a keyword (searchbar)
   if (input ==='keyword') {
@@ -128,17 +128,17 @@ const filterTodos = (key: any, input: any) => {
     // if there is an id filter and a check filter 
     if (filter.id && filter.check) {
       // set todos to todos where the 'isComplete' value and the 'user' value are equal to the filter params
-      todos = formModel.todos.filter((obj: any) => obj.isComplete == filter.check && ( obj.user == filter.id || filter.id.includes(obj.user)));
+      todos = formModel.todos.filter((obj: any) => obj.isComplete === filter.check && ( obj.user === filter.id || filter.id.includes(obj.user)));
     } else 
     // else if the filter has an id param
     if (filter.id) {
       // find todos that match the id filter param
-      todos = formModel.todos.filter((obj: any) => obj.user == filter.id || filter.id.includes(obj.user));
+      todos = formModel.todos.filter((obj: any) => obj.user === filter.id || filter.id.includes(obj.user));
     } else
     // else if there is a check param
     if (filter.check) {
       // set todos to the todos that match the check filter param
-      todos = formModel.todos.filter((obj: any) => obj.isComplete == filter.check);
+      todos = formModel.todos.filter((obj: any) => obj.isComplete === filter.check);
     }
     
     // set result to all the todos (already filtered by user dropdown/checkbox) that include the search keyword/letters
@@ -164,13 +164,13 @@ const filterTodos = (key: any, input: any) => {
     // if the filter has an id param
     if (filter.id) {
       // find todos that match the id filter param
-      todos = formModel.todos.filter((obj: any) => obj.user == filter.id || filter.id.includes(obj.user));
+      todos = formModel.todos.filter((obj: any) => obj.user === filter.id || filter.id.includes(obj.user));
     }
     //console.log("key is", key)
     // if the check is 'true'
     if (key === true){
       // set result to the todos that are completed
-      result = todos.filter((obj: any) => obj.isComplete == key);
+      result = todos.filter((obj: any) => obj.isComplete === key);
     } else {
       // else set the todos to all todos
       result = todos;
@@ -198,7 +198,7 @@ const filterTodos = (key: any, input: any) => {
 
 // get the name of a user by user id
 const findUser = (key: any) => {
-  const result = formModel.users.find((obj: any) => obj.id == key);
+  const result = formModel.users.find((obj: any) => obj.id === key);
   // return a string of the user's first and last name
   return result.firstName + ' ' + result.lastName;
 }
