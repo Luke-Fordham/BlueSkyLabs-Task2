@@ -51,7 +51,7 @@ const Filter: React.FC = () => {
         // set isComplete to status of checkbox
         todo.isComplete = event.target.checked;
         // run PUT request with the todo object and return true if successful
-        //add(newModel);
+        add(newModel);
         const test = await updateTodo(item);
         // if PUT request successful, update the view
         if (test.status) {
