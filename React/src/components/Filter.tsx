@@ -75,7 +75,7 @@ const Filter: React.FC = () => {
           <ListItem key={item.id} className={`${identifier}-${item.id}`}>
             <Card>
           <div className="todo-title-wrapper"><h3>{item.name}</h3><EditIcon className='edit-icon' onClick={openEdit}></EditIcon></div>
-          <p>{findUser(item.user)}</p>
+          <p className='user-name'>{findUser(item.user)}</p>
               <div className="check-wrapper">
                 <p>Completed:</p>
                 <Checkbox
