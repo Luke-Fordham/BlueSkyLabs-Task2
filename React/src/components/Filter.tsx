@@ -4,9 +4,10 @@ import { useBetween } from 'use-between';
 import {useSharedForm} from './Form';
 import Modal from './Modal';
 import Select from 'react-select';
-import { Checkbox, ListItem, TextField, Card} from '@material-ui/core';
+import { Checkbox, ListItem, TextField, Card, Button} from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import { updateTodo } from './updateTodo';
+import { deleteTodo } from './deleteTodo';
 
 
 // declare moduel types
@@ -65,6 +66,12 @@ const Filter: React.FC = () => {
       function openEdit() {
         changeModal({"status": true, "todo": item})
       }
+      function handleDelete() {
+        deleteTodo(item);
+        let todos = newModel.todos.filter((obj: any) => obj.id !== item.id);
+        newModel.todos = todos;
+        add(newModel);
+      }
       // if the todo isn't undefined
       if (item !== undefined) {
         const id = item.id;
@@ -85,6 +92,7 @@ const Filter: React.FC = () => {
                   inputProps={{ 'aria-label': 'primary checkbox' }}
                 />
               </div>
+              <Button className="delete-button" onClick={handleDelete}>Delete</Button>
             </Card>
         </ListItem>
         )

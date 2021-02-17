@@ -244,3 +244,9 @@ p {
 .add-task-button:hover {
   background-color: rgb(226, 226, 226) !important;
 }
+
+.delete-button {
+  position: absolute !important;
+  right: 35px !important;
+  bottom: 24px !important;
+}
