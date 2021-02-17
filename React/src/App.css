@@ -8,6 +8,9 @@
   /* background-image: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%); */
   /* background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); */
   background-image: linear-gradient(to top, #c3d4e6 0%, #eef5ff 100%);
+  /* background-image: linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%); */
+  /* background-image: linear-gradient(to right, #4facfe 0%, #00f2fe 100%); */
+  /* background-image: linear-gradient(-20deg, #f794a4 0%, #fdd6bd 100%); */
   position: absolute;
 }
 
@@ -57,6 +60,7 @@ p {
     overflow: hidden;
     overflow-y: scroll;
     border-bottom: 1px solid #ececec;
+    padding-left: 30px;
 }
 
 .searchbar{
@@ -235,4 +239,14 @@ p {
   top: 30px !important;
   right: 50px !important;
   box-shadow: 0px 0px 5px 1px rgb(0 0 0 / 10%) !important;
+}
+
+.add-task-button:hover {
+  background-color: rgb(226, 226, 226) !important;
+}
+
+.delete-button {
+  position: absolute !important;
+  right: 35px !important;
+  bottom: 24px !important;
 }

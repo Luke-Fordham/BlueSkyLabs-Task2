@@ -28,9 +28,9 @@ const useForm = () => {
     const [formModel, setForm] = useState<IView>({users:[], todos:[]});
     const [formView, setFormView] = useState<IView>({users:[], todos:[]});
     const [formEls, setFormEls] = useState<IView>({users:[], todos:[]});
-    const add = (value: any) => {setForm(value);} 
-    const addEls = (value: any) => {setFormEls(value);} 
-    const setView = (value: any) => {setFormView(value);} 
+    const add = (value: IView) => {setForm(value);} 
+    const addEls = (value: IView) => {setFormEls(value);} 
+    const setView = (value: IView) => {setFormView(value);} 
     return ({formModel, add, formEls, addEls, formView, setView});
 }
 

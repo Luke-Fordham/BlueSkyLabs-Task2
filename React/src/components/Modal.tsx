@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './../App.css';
 import {useSharedForm} from './Form';
 import {useSharedModal} from './Filter';
@@ -10,12 +10,12 @@ import {createTodo} from './createTodo'
   const Modal: React.FC = () => {
 
     const { formModel, add }: any = useSharedForm();
-    const { formEls, addEls }: any = useSharedForm();
+    const { formEls }: any = useSharedForm();
     const { modalState, changeModal }: any = useSharedModal();
 
     const [input, setInput]: any = useState('');
     const [user, setUser]: any = useState('');
-    const [checkbox, setCheckbox]: any = useState(false);
+    const [checkbox]: any = useState(false);
 
 
     async function handleSave() {
@@ -39,8 +39,17 @@ import {createTodo} from './createTodo'
         let newTodo: any = {};
         newTodo['isComplete'] = checkbox;
         newTodo['name'] = input;
-        const todoIndex = (formModel.todos.length + 1)
-        newTodo['id'] = todoIndex;
+        // const todoIndex = (formModel.todos.length + 1)
+        // newTodo['id'] = todoIndex;
+        const newId = formModel.todos.reduce(function(prev: any, current: any) {
+            if (+current.id > +prev.id) {
+                return current;
+            } else {
+                return prev;
+            }
+        });
+        newTodo['id'] = parseInt(newId.id) + 1;
+        console.log('id is ', newId)
         newTodo['user'] = user;
         const test = await createTodo(newTodo);
         if (test.status) {
