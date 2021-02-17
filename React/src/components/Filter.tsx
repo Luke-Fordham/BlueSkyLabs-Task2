@@ -66,11 +66,15 @@ const Filter: React.FC = () => {
       function openEdit() {
         changeModal({"status": true, "todo": item})
       }
-      function handleDelete() {
-        deleteTodo(item);
-        let todos = newModel.todos.filter((obj: any) => obj.id !== item.id);
-        newModel.todos = todos;
-        add(newModel);
+      async function handleDelete() {
+        const response = await deleteTodo(item);
+        if (response.status) {
+          let todos = newModel.todos.filter((obj: any) => obj.id !== item.id);
+          newModel.todos = todos;
+          add(newModel);
+        } else {
+          changeModal({'status': true, 'message': 'ERROR: could not update project'})
+        }
       }
       // if the todo isn't undefined
       if (item !== undefined) {
