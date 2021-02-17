@@ -23,6 +23,7 @@ import {createTodo} from './createTodo'
         newModel['users'] = formModel.users;
         newModel['todos'] = formModel.todos;
         let todo = newModel.todos.find((obj: any) => obj.id === modalState.todo.id);
+        const initialName = todo.name;
         todo.name = input;
         const test = await updateTodo(todo);
         if (test.status) {
@@ -31,6 +32,7 @@ import {createTodo} from './createTodo'
             // update model
             add(newModel)
         } else {
+            todo.name = initialName;
             changeModal({'status': true, 'message': 'ERROR: could not update project'})
         }
     }
